@@ -1,26 +1,31 @@
-#import Libraries
 import discord
 import os
 from dotenv import load_dotenv
 from discord.ext import commands
 import gspread
 
-#Spreadsheet setup / defining worksheets
+
+#---------SPREADSHEET SETUP-------------------------------------------------------
 gc = gspread.service_account(filename='creds.json')
 spread = gc.open('CustomMapComp')
-
+    #declaring worksheets
 stierlist = spread.worksheet('TierList')
 smaps = spread.worksheet('Maps')
 sinput = spread.worksheet('Input')
 splayers = spread.worksheet('Players')
 smain = spread.worksheet('MainSheet')
 stest = spread.worksheet('testing')
+#------------------------------------------------------------------
 
-#grab bot token from .env file and create bot
+
+#---------BOT SETUP--------------------------------------------------------------
 load_dotenv()
-TOKEN = os.getenv("TOKEN")
-bot = commands.Bot(command_prefix = '$')
+TOKEN = os.getenv("TOKEN")                                                       #takes token from .env file
+bot = commands.Bot(command_prefix = '$')                                         #sets prefix for bot     
+#------------------------------------------------------------------                                  
     
+
+#---------FUNCTIONS--------------------------------------------------------------
 
 #converts input time to a number so it can be compared
 def time_to_int(time):
@@ -60,14 +65,18 @@ def arg_exists(sheet, arg, col = None):
         return sheet.find(arg, None, col)
     else:
         return False
-######################################################################################################################################
+#------------------------------------------------------------------ 
+
+#---------COMMANDS---------------------------------------------------------------
+
+#says hi to the user.
 @bot.command()
 async def hi(ctx):
     """Say hi to FinishLine!"""
     pass
     await ctx.channel.send('Hi, {}!'.format(ctx.message.author.mention))
 
-#Register a new player
+#Registers a new player
 @bot.command()
 async def newplayer(ctx):
     """registers yourself to the database."""
