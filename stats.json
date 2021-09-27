@@ -1,0 +1,58 @@
+{
+   "guilds": {
+      "829851909081792533": {
+         "name": "Bot Testing",
+         "players": [
+            "269607941252841482",
+            "297776824593940482",
+            "302079469882179585"
+         ]
+      },
+      "891811189229756506": {
+         "name": "Bot 2",
+         "players": [
+            "269607941252841482"
+         ]
+      }
+   },
+   "maps": {
+      "null's trash": {
+         "aliases": [
+            "trash"
+         ],
+         "description": "asginaigb",
+         "link": "rocketball.com",
+         "picture": "no",
+         "world record": "5"
+      },
+      "test": {
+         "aliases": [
+            "testing",
+            "tested",
+            "the ultimate test"
+         ],
+         "description": "PAWIG",
+         "link": "asog",
+         "picture": "W-OGH",
+         "world record": "ieign"
+      }
+   },
+   "players": {
+      "269607941252841482": {
+         "mention": "<@269607941252841482>",
+         "name": "Reeve",
+         "null's trash": 306421,
+         "test": 5050
+      },
+      "297776824593940482": {
+         "mention": "<@297776824593940482>",
+         "name": "Der1014",
+         "test": 2150
+      },
+      "302079469882179585": {
+         "mention": "<@302079469882179585>",
+         "name": "nullidea",
+         "test": 3400
+      }
+   }
+}
