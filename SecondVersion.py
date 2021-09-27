@@ -2,7 +2,6 @@ import discord
 import os
 import asyncio
 import json
-from discord.ext import menus
 from discord.ext.commands.core import command
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -15,7 +14,7 @@ doctime = "You took too long. Try again."
 
 #Bot Setup-------------------------------------------------------
 load_dotenv()
-TOKEN = os.getenv("TOKEN2")
+TOKEN = os.getenv("ODM5NTU1NTQxMDg5MjU1NDY1.YJLXBw.H7KZ8QMta2xcCqiF7XDnCrK_YNg")
 intents = discord.Intents.default()
 intents.members = True  # Subscribe to the privileged members intent.
 bot = commands.Bot(command_prefix='!', intents=intents)
