@@ -2,7 +2,7 @@ import discord
 import os
 import asyncio
 import json
-#import keep_alive 
+#import keep_alive #for replit
 from discord.ext.commands.core import command
 from dotenv import load_dotenv
 from discord.ext import commands
