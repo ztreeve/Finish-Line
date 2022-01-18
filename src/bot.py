@@ -68,10 +68,35 @@ async def record(ctx: CommandContext, map, time):
     if time_of_run.total_seconds() < 1:
         await ctx.send("Your run was too fast!")
         return
-    player.add_record(map, time_of_run.total_seconds())
 
-    await ctx.send(f"<@!{ctx.member.user.id}>, Congrats on your `{time_of_run}` run on `{map}`.")
+    if player.add_record(map, time_of_run.total_seconds()):
+        await ctx.send(f"<@!{ctx.member.user.id}>, Congrats on your `{time_of_run}` run on `{map}`!")
+    else:
+        await ctx.send(f"<@!{ctx.member.user.id}>, You got a time `{time_of_run}` run on `{map}`. Try and beat your record of `{datetime.timedelta(seconds=player.records[map])}`.")
 
+@bot.command(
+    name="deleterun",
+    description="Clear a run.",
+    options=[interactions.Option(
+        type=interactions.OptionType.STRING,
+        name="map",
+        description="Rocket League Map.",
+        required=True,
+        choices=list(map(lambda x: interactions.Choice(
+            name=x, value=x), get_maps().keys()))
+    )]
+)
+async def clear_record(ctx: CommandContext, map):
+    logging.info(
+        f"Command accessed by {ctx.member.user.id} : {ctx.member.user.username}.")
+    await ctx.defer()
+
+    player = JSONDatabase(ctx.member, ctx.guild_id)
+
+    if player.delete_record(map):
+        await ctx.send(f"<@!{ctx.member.user.id}>, successfully cleared run on `{map}`.")
+    else:
+        await ctx.send(f"<@!{ctx.member.user.id}>, no run exists on `{map}`.")
 
 @bot.command(
     name="leaderboard",
@@ -99,7 +124,7 @@ async def leaderboard(ctx: CommandContext, map, scope):
 
     player = JSONDatabase(ctx.member, ctx.guild_id)
 
-    if scope == 'local':
+    if scope == 'Local':
         leaderboard = player.leaderboard(map, local=True)
     else:
         leaderboard = player.leaderboard(map, local=False)
@@ -133,7 +158,7 @@ async def stats(ctx: CommandContext):
 
     stats = []
     for map in player.records.keys():
-        personal_record = datetime.timedelta(seconds=min(player.records[map]))
+        personal_record = datetime.timedelta(seconds=player.records[map])
 
         local_leaderboard = player.leaderboard(map, local=True)
         local_rank = [x[0] for x in local_leaderboard].index(
