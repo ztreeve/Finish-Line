@@ -21,7 +21,7 @@ def input_to_timedelta(time):
     hours = "0"
     # check for milliseconds
     if time.count(".") == 1:
-        milliseconds = time.split(".")[1]
+        milliseconds = time.split(".")[1] + "00"
         # remove milliseconds from time str
         time = time.split(".")[0]
         if time == '':
