@@ -72,10 +72,6 @@ async def record(ctx: CommandContext, map, time):
 
     await ctx.send(f"<@!{ctx.member.user.id}>, Congrats on your `{time_of_run}` run on `{map}`.")
 
-scope = [interactions.Choice(name="Individual", value="individual"),
-         interactions.Choice(name="Local", value="local"),
-         interactions.Choice(name="Global", value="global")]
-
 
 @bot.command(
     name="leaderboard",
