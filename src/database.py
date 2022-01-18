@@ -89,10 +89,21 @@ class JSONDatabase():
     def add_record(self, map, time):
         self.load()
         if map not in self.records.keys():
-            self.records[map] = [time]
-        else:
-            self.records[map].append(time)
+            self.records[map] = time
+        elif self.records[map] <= time:
+            return False
         self.save()
+        return True
+
+    def delete_record(self, map):
+        self.load()
+        if map not in self.records.keys():
+            return False
+        del self.records[map]
+        self.save()
+        return True
+
+        
 
     def leaderboard(self, map, local):
         statlist = {}
@@ -102,6 +113,6 @@ class JSONDatabase():
             if map in runs['records'].keys():
                 if local and runs['server'] != self.guild_id:
                     continue
-                statlist[runs['name']] = min(runs['records'][map])
+                statlist[runs['name']] = runs['records'][map]
         return sorted(statlist.items(), key=lambda x: x[1])
 
