@@ -74,6 +74,7 @@ async def record(ctx: CommandContext, map, time):
     else:
         await ctx.send(f"<@!{ctx.member.user.id}>, You got a time `{time_of_run}` run on `{map}`. Try and beat your record of `{datetime.timedelta(seconds=player.records[map])}`.")
 
+
 @bot.command(
     name="deleterun",
     description="Clear a run.",
@@ -97,6 +98,7 @@ async def clear_record(ctx: CommandContext, map):
         await ctx.send(f"<@!{ctx.member.user.id}>, successfully cleared run on `{map}`.")
     else:
         await ctx.send(f"<@!{ctx.member.user.id}>, no run exists on `{map}`.")
+
 
 @bot.command(
     name="leaderboard",
@@ -175,6 +177,7 @@ async def stats(ctx: CommandContext):
 
     if not stats:
         await ctx.send(f'No stats for {ctx.member.user.username}')
+        return
     embed = interactions.Embed(
         title=f"{player.name}'s amazing stats!", color=0x1a47ff,
         fields=[interactions.EmbedField(name="Map:", value=map, inline=True),
