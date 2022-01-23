@@ -41,7 +41,7 @@ with open(os.path.dirname(__file__) + '/../config.json', 'r') as f:
         description="Rocket League Map.",
         required=True,
         choices=list(map(lambda x: interactions.Choice(
-            name=x, value=x), get_maps().keys()))
+    name=x, value=x)._json, get_maps().keys()))
     ), interactions.Option(
         type=interactions.OptionType.STRING,
         name="time",
@@ -84,7 +84,7 @@ async def record(ctx: CommandContext, map, time):
         description="Rocket League Map.",
         required=True,
         choices=list(map(lambda x: interactions.Choice(
-            name=x, value=x), get_maps().keys()))
+            name=x, value=x)._json, get_maps().keys()))
     )]
 )
 async def clear_record(ctx: CommandContext, map):
@@ -109,14 +109,14 @@ async def clear_record(ctx: CommandContext, map):
         description="Rocket League Map.",
         required=True,
         choices=list(map(lambda x: interactions.Choice(
-            name=x, value=x), get_maps().keys()))
+            name=x, value=x)._json, get_maps().keys()))
     ), interactions.Option(
         type=interactions.OptionType.STRING,
         name="scope",
         description="View local/global leaderboard.",
         required=True,
-        choices=[interactions.Choice(name='Local', value='Local'), interactions.Choice(
-            name='Global', value='Global')]
+        choices=[interactions.Choice(name='Local', value='Local')._json, interactions.Choice(
+            name='Global', value='Global')._json]
     )]
 )
 async def leaderboard(ctx: CommandContext, map, scope):
@@ -138,9 +138,9 @@ async def leaderboard(ctx: CommandContext, map, scope):
     # Thumbnail seems to be really broken
     embed = interactions.Embed(
         title=f"{scope} Top 20: {map}", color=0x1a47ff,
-        # thumbnail=interactions.EmbedImageStruct(url=get_maps()[map]['picture']),
+        thumbnail=interactions.EmbedImageStruct(url=get_maps()[map]['picture'])._json,
         fields=[
-            # interactions.EmbedField(name="Workshop Link", value=get_maps()[map]['link'], inline=True),
+            interactions.EmbedField(name="Workshop Link", value=get_maps()[map]['link'], inline=True),
             interactions.EmbedField(name="Leaderboard:", value='\n'.join(
                 [f'{leaderboard.index(x) + 1}. {x[0]} - {datetime.timedelta(seconds=x[1])}' for x in leaderboard[:20]]), inline=False)
         ])
