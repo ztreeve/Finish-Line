@@ -10,13 +10,15 @@ class JSONDatabase():
         self.player = player
         self.guild_id = int(guild_id)
         self.data = {}
+        if self.exists():
+            self.load()
         # update username and server everytime player is accessed
         self.data['name'] = str(self.player.user.username)
         self.data['server'] = self.guild_id
         # create records for new player
         if not self.exists():
             self.data['records'] = {}
-            self.save()
+        self.save()
 
     def load(self):
         if not os.path.exists(os.path.dirname(__file__) + f'/data/'):
@@ -92,6 +94,7 @@ class JSONDatabase():
             self.records[map] = time
         elif self.records[map] <= time:
             return False
+        self.records[map] = time
         self.save()
         return True
 
@@ -103,9 +106,8 @@ class JSONDatabase():
         self.save()
         return True
 
-        
-
     def leaderboard(self, map, local):
+        self.load()
         statlist = {}
         for file in os.listdir(os.path.dirname(__file__) + f'/data/'):
             with open(os.path.dirname(__file__) + f'/data/{file}') as f:
@@ -115,4 +117,3 @@ class JSONDatabase():
                     continue
                 statlist[runs['name']] = runs['records'][map]
         return sorted(statlist.items(), key=lambda x: x[1])
-
